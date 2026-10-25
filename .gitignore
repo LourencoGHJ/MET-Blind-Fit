@@ -1,0 +1,27 @@
+﻿# Flutter e Dart
+.dart_tool/
+.pub/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE e ficheiros locais
+.idea/
+.vscode/
+*.iml
+**/.gradle/
+**/local.properties
+
+# Credenciais e chaves
+.env
+.env.*
+!.env.example
+**/key.properties
+**/*.jks
+**/*.keystore
+
+# Sistema operativo
+Thumbs.db
+Desktop.ini
+*.log

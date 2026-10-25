@@ -1,0 +1,20 @@
+{
+  "environment": "LOCAL_TEST_ONLY",
+  "notice": "Todos os dados são fictícios. Não usar para organizar corridas reais.",
+  "supervisors": [
+    {"id": "sup_demo_01", "name": "Marta Silva", "verified": true, "verification_is_real": false},
+    {"id": "sup_demo_02", "name": "João Ribeiro", "verified": true, "verification_is_real": false}
+  ],
+  "runs": [
+    {"id": "run_foz", "title": "Corrida inclusiva à beira-mar", "city": "Porto · Foz do Douro", "distance_km": 4, "status": "open", "supervisor_id": "sup_demo_01"},
+    {"id": "run_parque", "title": "Treino no Parque da Cidade", "city": "Porto · Parque da Cidade", "distance_km": 5, "status": "open", "supervisor_id": "sup_demo_02"}
+  ],
+  "features": {
+    "authentication": "not_implemented",
+    "real_location": "not_implemented",
+    "live_tracking": "not_implemented",
+    "tts": "not_implemented",
+    "emergency_contact": "not_implemented",
+    "identity_verification": "not_implemented"
+  }
+}
