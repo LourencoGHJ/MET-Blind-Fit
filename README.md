@@ -1,100 +1,57 @@
-# MET Blind Fit — protótipo Android-first v0.3
+# MET Blind Fit
 
-Aplicação Flutter em português de Portugal para explorar corridas inclusivas com corredores cegos ou com baixa visão, guias, supervisores e grupos comunitários. O objetivo desta versão é validar o fluxo e a arquitetura antes de ligar serviços reais.
+**Correr com confiança. Partilhar o percurso. Promover a inclusão.**
 
-## O que existe
+## A ideia
 
-- Entrada por perfil: corredor, guia, supervisor e administrador demonstrativo.
-- Descoberta de corridas com pesquisa e filtros.
-- Detalhe de evento, capacidade, ponto de encontro, ritmo e supervisor previsto.
-- Reservas e cancelamentos persistidos em SQLite.
-- Comunidade, QR demonstrativo e amizades guardadas localmente.
-- Painel de supervisão com checklist, estados simulados de sinal e incidentes demonstrativos.
-- Ecrã de corrida ativa com mapa ilustrativo, pedido de ajuda simulado e exemplos de instruções.
-- Preferências de acessibilidade persistidas localmente: texto ampliado e fundo de alto contraste aplicados globalmente; preferências de áudio e sinais táteis guardadas para implementação futura.
-- Registo local de atividade.
-- Backend de teste independente com armazenamento JSON e endpoints para corridas, supervisores, reservas, amizades, sessões e incidentes.
-- Script PowerShell de compilação APK com validação de pré-requisitos, análise, testes e build.
+O MET Blind Fit é um projeto que pretende facilitar o acesso à corrida a pessoas cegas ou com baixa visão, ligando-as a guias de corrida e a uma comunidade inclusiva.
 
-## Acessibilidade
+A aplicação procura simplificar a descoberta de acompanhantes, a organização de corridas e a comunicação entre participantes, promovendo a autonomia, a confiança e a participação desportiva.
 
-A aplicação procura usar controlos grandes, rótulos descritivos e estrutura semântica. A preferência de texto ampliado afeta a escala de texto global; o modo de alto contraste usa fundo branco. Estas opções não substituem as definições do sistema, VoiceOver ou TalkBack.
+## Como funcionaria?
 
-**Antes de qualquer piloto real:** validar com TalkBack e utilizadores cegos/baixa visão; testar tamanhos de letra extremos, foco, ordem de leitura, contraste, orientação e uso durante movimento. Não usar o telemóvel enquanto se corre de forma que comprometa a segurança.
+A plataforma teria três tipos principais de participantes:
 
-## Persistência local
+- **Corredores:** pessoas cegas ou com baixa visão que procuram acompanhamento para correr.
+- **Guias:** pessoas disponíveis para acompanhar corredores durante os seus percursos.
+- **Supervisores:** participantes que apoiam a organização e a coordenação das atividades, de acordo com as permissões definidas.
 
-A base SQLite `met_blind_fit_local.db` é criada no armazenamento privado da aplicação Android. Guarda corridas de demonstração, reservas, amizades, registo de atividade e preferências. O esquema é migrável da versão anterior para a versão 2.
+## Cenários de utilização
 
-## Construir APK no Windows
+### Encontrar um guia
 
-Requisitos: Flutter SDK, Android SDK e uma instalação Java compatível com a versão Flutter/Gradle configurada.
+Um corredor consulta os guias disponíveis, conhece os seus perfis e solicita acompanhamento. Os participantes combinam o horário, o percurso e as condições da corrida.
 
-1. Extrai a pasta do ZIP.
-2. Abre PowerShell na pasta raiz, onde está `pubspec.yaml`.
-3. Executa:
+### Disponibilizar-se como guia
 
-```powershell
-Set-ExecutionPolicy -Scope Process Bypass
-.\build-apk.ps1
-```
+Uma pessoa interessada em acompanhar corredores consulta pedidos compatíveis e manifesta a sua disponibilidade para participar numa atividade.
 
-O script tenta preparar a plataforma Android, executar `flutter pub get`, `flutter analyze`, `flutter test` e compilar o APK de debug.
+### Organizar corridas de grupo
 
-Saída esperada: `build\app\outputs\flutter-apk\app-debug.apk`.
+Os participantes podem reunir-se numa atividade conjunta, consultar as informações da corrida e coordenar a participação dos elementos confirmados.
 
-Se precisares de gerar os diretórios Android manualmente:
+### Criar ligações através de QR
 
-```powershell
-flutter create . --platforms=android
-flutter pub get
-flutter analyze
-flutter test
-flutter build apk --debug
-```
+Dois participantes que se conheceram numa corrida podem utilizar códigos QR para facilitar a ligação entre os respetivos perfis, com confirmação e respeito pela privacidade.
 
-## Backend local de testes
+### Acompanhar uma atividade
 
-O backend é independente da app Flutter. Para iniciar:
+O conceito prevê ferramentas de coordenação e acompanhamento em tempo real, incluindo partilha de localização autorizada e mecanismos de apoio adequados à atividade.
 
-```powershell
-python .\backend-test\server.py
-```
+### Promover confiança e segurança
 
-Endpoints de teste:
-- `GET /api/health`
-- `GET /api/runs`
-- `GET /api/supervisors`
-- `GET /api/config`
-- `GET /api/bookings`, `GET /api/friends`, `GET /api/incidents`, `GET /api/sessions`
-- `POST /api/bookings` com `run_id` e `user_id`
-- `POST /api/friends` com `name`
-- `POST /api/incidents` com `kind` e descrição opcional
-- `POST /api/sessions` com `run_id`
-- `DELETE /api/{bookings|friends|incidents|sessions}/<id>`
+A visão do projeto inclui verificação de guias e supervisores, gestão de permissões e proteção dos dados dos participantes. Estes mecanismos terão de ser implementados e validados antes de uma utilização real.
 
-Os registos são guardados em `backend-test/data/state.json`. Executa testes rápidos com:
+## Princípios
 
-```powershell
-python -m unittest discover -s .\backend-test\tests
-```
+- **Inclusão:** facilitar a participação desportiva de pessoas cegas ou com baixa visão.
+- **Acessibilidade:** conceber uma experiência simples, compreensível e adaptável.
+- **Confiança:** definir responsabilidades e promover relações transparentes.
+- **Comunidade:** incentivar novas ligações e atividades partilhadas.
+- **Privacidade:** controlar a partilha de localização e de informações pessoais.
 
-O backend liga exclusivamente a `127.0.0.1`, não tem autenticação, controlo de acesso, proteção CSRF, rate limiting nem validação de identidade. **É apenas para desenvolvimento local. Não o exponhas à Internet e não uses dados pessoais reais.** A app Flutter ainda não consome automaticamente esta API; a persistência de produção não está implementada.
+## Estado do projeto
 
-## Funcionalidades ainda simuladas
+O MET Blind Fit encontra-se em fase de prototipagem. Algumas experiências são demonstrativas e as funcionalidades previstas não devem ser confundidas com serviços já operacionais.
 
-Não há login real, sincronização entre dispositivos, verificação de identidade, GPS, localização em tempo real, Google Maps/OSM integrado, TTS real, microfone, chamadas, notificações push ou contacto com serviços de emergência. Os perfis, rotas, presenças e alertas são fictícios. Os estados de verificação são ilustrativos e não comprovam a identidade ou qualificação de ninguém.
-
-## Próximas fases
-
-1. Compilar e validar o APK no ambiente Android.
-2. Testar os fluxos com TalkBack e pessoas cegas/baixa visão.
-3. Ligar UI a repositórios locais bem definidos e adicionar testes de integração.
-4. Criar autenticação, permissões, verificação de guias/supervisores e consentimento.
-5. Implementar backend seguro, regras de autorização e sincronização.
-6. Só depois adicionar localização partilhada, rotas, TTS, notificações e processos de emergência.
-
-
-## Verificação do código
-
-A versão corrigida reorganiza `lib/main.dart` em widgets e métodos separados para reduzir erros de sintaxe. Executa `flutter analyze` e `flutter test` no Windows antes de gerar o APK. A compilação ainda precisa de ser confirmada no teu ambiente com Android SDK instalado.
+A visão futura é desenvolver uma plataforma que ajude a tornar a corrida mais acessível, partilhada e inclusiva.
